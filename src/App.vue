@@ -10,6 +10,7 @@ const items = ref([
 
 ]);
 const newItem = ref('');
+const newItemPriority=ref('low');
 
 </script>
 
@@ -20,7 +21,17 @@ const newItem = ref('');
     {{ header }}
 </h1>
 <input v-model.lazy="newItem" type="tex"
- placeholder="Agregar articulo">{{ newItem }}
+ placeholder="Agregar articulo">
+ <!-- Radio de botones-->
+  <label>
+    <input type="radio" value="low" v-model="newItemPriority">
+    Baja
+</label>
+  <label>
+    <input type="radio" value="high" v-model="newItemPriority">
+    Alta
+</label>
+{{ newItemPriority =='low'?'🦤':'🧸'}}
 <ul>
     
 <li v-for="item in items" :key="item.id">➡️ {{ item.label }}</li>
