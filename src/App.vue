@@ -11,7 +11,8 @@ const items = ref([
 ]);
 const newItem = ref('');
 const newItemPriority=ref('low');
-
+const newItemHighPriority = ref(false);
+const iceCreamFlavors = ref([]);
 </script>
 
 <template>
