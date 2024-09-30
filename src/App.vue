@@ -32,6 +32,19 @@ const newItemPriority=ref('low');
     Alta
 </label>
 {{ newItemPriority =='low'?'🦤':'🧸'}}
+  <!-- Helados -->
+  <label>
+		<input type="checkbox" v-model="iceCreamFlavors" value="vanilla">
+		Vanilla
+	</label>
+  <label>
+		<input type="checkbox" v-model="iceCreamFlavors" value="chocolate">
+		Chocolate
+	</label>
+  <label>
+		<input type="checkbox" v-model="iceCreamFlavors" value="strawnerry">
+		Strawberry
+	</label>
 <ul>
     
 <li v-for="item in items" :key="item.id">➡️ {{ item.label }}</li>
