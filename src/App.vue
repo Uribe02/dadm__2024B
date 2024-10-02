@@ -2,15 +2,25 @@
 import { ref } from 'vue';
 // Modelo
 const header = ref('App lista de compras');
+//---items---
+//items model
 const items = ref([
   {id:'0', label: '10 bolillos'},
   {id:'1', label: '1 crema de litro'},
   {id:'2', label: '1/4 de jamon'},
   {id:'3', label: '1 nutella'}
 ]);
-const newItem = ref("");
+//item-metodo
+const seveItem = () => {
+  //accediendo a la variable reactiva items value.
+  items.value.push({id:items.value.length + 1, label: newItem.value});
+  //limpia el imput 
+  newItem.value='';
+};
+const newItem = ref('');
 const newItemHighPriority = ref(false);
-const iceCreamFlavors = ref([]);
+
+//metodos 
 </script>
 
 <template>
@@ -18,7 +28,9 @@ const iceCreamFlavors = ref([]);
    <i class="material-icons shopping-cart-icon">local_mall</i> 
     {{ header }} 
   </h1>
-  <form v-on:submit.prevent="items.push({id: items.length + 1, label: newItem})" class="add-item form">
+  <form 
+  class="add-item form"
+   v-on:submit.prevent="seveItem">
   <input v-model="newItem" type="text" placeholder="Agregar un articulo" />
   <!--Caja de seleccion de Prioridad-->
   <label>
@@ -31,19 +43,7 @@ const iceCreamFlavors = ref([]);
   </button>
   </form>
   <ul></ul>
-  <!-- Helados -->
-   <label>
-    <input type="checkbox" v-model="iceCreamFlavors" value="Vanilla" />
-    Vanilla
-  </label>
-  <label>
-    <input type="checkbox" v-model="iceCreamFlavors" value="Chocolate" />
-    Chocolate
-  </label>
-  <label>
-    <input type="checkbox" v-model="iceCreamFlavors" value="Cookie and cream" />
-    Cookie and cream
-  </label>
+
   {{ iceCreamFlavors }}
   <ul></ul>
   {{ newItemHighPriority }}
