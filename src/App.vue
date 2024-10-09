@@ -25,6 +25,7 @@ const activateEdition = (activate)=>{
   editing.value=activate;
 };
 
+
 //metodos 
 </script>
 
@@ -48,6 +49,19 @@ const activateEdition = (activate)=>{
     Agregar Articulo
   </button>
   </div>
+
+  <!---colocando un iperenlace-->
+   <!---para poder poner link enla caja de texto v-bind:href="newItem"-->
+     <!--para que cuando este bacia la caja de texto tenga un link
+     :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
+    target="_blank" -->
+ 
+  <a 
+    :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
+    target="_blank">
+    {{ newItem === '' ? '😒 Link' : newItem }}
+  </a>
+  <!--- agrupando entradas de usuario-->
   <form 
   class="add-item form"
   v-if="editing"
