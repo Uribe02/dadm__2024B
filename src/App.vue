@@ -5,10 +5,10 @@ const header = ref('App lista de compras');
 //---items---
 //items model
 const items = ref([
-  {id:'0', label: '10 bolillos'},
-  {id:'1', label: '1 crema de litro'},
-  {id:'2', label: '1/4 de jamon'},
-  {id:'3', label: '1 nutella'}
+  {id:'0', label: '10 bolillos',purchased:false,priority:true},
+  {id:'1', label: '1 crema de litro',purchased:true,priority:true},
+  {id:'2', label: '1/4 de jamon',purchased:false,priority:false},
+  {id:'3', label: '1 nutella',purchased:true,priority:false}
 ]);
 //item-metodo
 const seveItem = () => {
@@ -75,7 +75,8 @@ const activateEdition = (activate)=>{
   </label>
   <!--Boton-->
   
-  <!--Desabilitando el boton cuando esta bacia la caja de texto-->
+  <!--Desabilitando el boton cuando esta bacia la caja de texto
+         :disabled="newItem.length==0"-->
   <button
   :disabled="newItem.length==0" 
   class="btn btn-primary">
@@ -88,10 +89,17 @@ const activateEdition = (activate)=>{
   <ul></ul>
   {{ newItemHighPriority }}
   <!-- Lista -->
+   <!-- desestructuracion -->
   <ul>
-    <li v-for="item in items" :key="item.id"> 🛍 {{  item.label }} </li>
+    <li
+     v-for="{label,id,purchased,priority} in items" 
+     :key="id"
+      :class="{strikeout: purchased, priority: priority}"
+      class="amazing">  
+      {{priority ? "🔥":"💧"}}{{  label }} 
+    </li>
   </ul>
-  <p V-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
+  <p v-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
 </template>
 
 <style scoped>
