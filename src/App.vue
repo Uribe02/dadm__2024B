@@ -50,17 +50,18 @@ const activateEdition = (activate)=>{
   </button>
   </div>
 
-  <!---colocando un iperenlace-->
-   <!---para poder poner link enla caja de texto v-bind:href="newItem"-->
-     <!--para que cuando este bacia la caja de texto tenga un link
+  
+   <!---para poder poner link enla caja de texto v-bind:href="newItem"
+     para que cuando este bacia la caja de texto tenga un link
      :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
     target="_blank" -->
- 
+ <!---colocando un iperenlace
   <a 
     :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
     target="_blank">
     {{ newItem === '' ? '😒 Link' : newItem }}
   </a>
+  -->
   <!--- agrupando entradas de usuario-->
   <form 
   class="add-item form"
@@ -73,7 +74,11 @@ const activateEdition = (activate)=>{
     Alta Prioridad
   </label>
   <!--Boton-->
-  <button class="btn btn-primary">
+  
+  <!--Desabilitando el boton cuando esta bacia la caja de texto-->
+  <button
+  :disabled="newItem.length==0" 
+  class="btn btn-primary">
     Salvar Articulo
   </button>
   </form>
