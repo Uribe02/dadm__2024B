@@ -8,7 +8,12 @@ const items = ref([
   {id:'0', label: '10 bolillos',purchased:false,priority:true},
   {id:'1', label: '1 crema de litro',purchased:true,priority:true},
   {id:'2', label: '1/4 de jamon',purchased:false,priority:false},
-  {id:'3', label: '1 nutella',purchased:true,priority:false}
+  {id:'3', label: '1 nutella',purchased:true,priority:false},
+
+  {id:'4', label: '10 bolillos',purchased:false,priority:true},
+  {id:'5', label: '1 crema de litro',purchased:true,priority:true},
+  {id:'6', label: '1/4 de jamon',purchased:false,priority:false},
+  {id:'7', label: '1 nutella',purchased:true,priority:false}
 ]);
 //item-metodo
 const seveItem = () => {
@@ -94,11 +99,12 @@ const activateEdition = (activate)=>{
     <li
      v-for="{label,id,purchased,priority} in items" 
      :key="id"
-      :class="{strikeout: purchased, priority: priority}"
-      class="amazing">  
+      :class="[purchased ? 'strikeout':'',priority? 'priority':'']"
+      >  
       {{priority ? "🔥":"💧"}}{{  label }} 
     </li>
   </ul>
+  <!--Lista clases como arreglos-->
   <p v-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
 </template>
 
