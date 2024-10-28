@@ -1,115 +1,86 @@
+<template>
+  <div class="header">
+    <h1>
+      <i class="material-icons shopping-cart-icon">local_mall</i>
+      {{ header }}
+    </h1>
+    <button v-if="editing" class="btn" @click="activateEdition(false)">Cancelar</button>
+    <button v-else class="btn btn-primary" @click="activateEdition(true)">Agregar Artículo</button>
+  </div>
+
+  <!-- Formulario para agregar artículos -->
+  <form class="add-item form" v-if="editing" @submit.prevent="seveItem">
+    <input v-model="newItem" type="text" placeholder="Agregar un artículo" />
+    <!-- Checkbox para seleccionar prioridad -->
+    <label>
+      <input type="checkbox" v-model="newItemHighPriority" />
+      Alta Prioridad
+    </label>
+    <!-- Botón para guardar -->
+    <button :disabled="newItem.length == 0" class="btn btn-primary">Salvar Artículo</button>
+  </form>
+
+  <!-- Lista de artículos -->
+  <ul>
+    <li
+      v-for="({ id, label, purchased, priority }, index) in items"
+      :key="id"
+      :class="{ strikeout: purchased, priority: priority }"
+      @click="togglePurchased(items[index])"
+    >
+      {{ priority ? "🔥" : "💧" }} {{ label }}
+    </li>
+  </ul>
+
+  <p v-if="items.length === 0">🥀 NO HAY ELEMENTOS EN LA LISTA 🥀</p>
+</template>
+
 <script setup>
 import { ref } from 'vue';
-// Modelo
-const header = ref('App lista de compras');
-//---items---
-//items model
-const items = ref([
-  {id:'0', label: '10 bolillos',purchased:false,priority:true},
-  {id:'1', label: '1 crema de litro',purchased:true,priority:true},
-  {id:'2', label: '1/4 de jamon',purchased:false,priority:false},
-  {id:'3', label: '1 nutella',purchased:true,priority:false},
 
-  {id:'4', label: '10 bolillos',purchased:false,priority:true},
-  {id:'5', label: '1 crema de litro',purchased:true,priority:true},
-  {id:'6', label: '1/4 de jamon',purchased:false,priority:false},
-  {id:'7', label: '1 nutella',purchased:true,priority:false}
+// Variables reactivas
+const header = ref('App lista de compras');
+const items = ref([
+  { id: '0', label: '10 bolillos', purchased: false, priority: true },
+  { id: '1', label: '1 crema de litro', purchased: true, priority: true },
+  { id: '2', label: '1/4 de jamón', purchased: false, priority: false },
+  { id: '3', label: '1 Nutella', purchased: true, priority: false },
 ]);
-//item-metodo
-const seveItem = () => {
-  //accediendo a la variable reactiva items value.
-  items.value.push({id:items.value.length + 1, label: newItem.value});
-  //limpia el imput 
-  newItem.value='';
-};
-//---formulario--
+
 const newItem = ref('');
 const newItemHighPriority = ref(false);
 const editing = ref(true);
-const activateEdition = (activate)=>{
-  editing.value=activate;
+
+// Función para alternar el estado `purchased`
+const togglePurchased = (item) => {
+  item.purchased = !item.purchased;
 };
 
+// Función para agregar un nuevo artículo
+const seveItem = () => {
+  items.value.push({
+    id: items.value.length + 1,
+    label: newItem.value,
+    purchased: false,
+    priority: newItemHighPriority.value,
+  });
+  newItem.value = '';
+};
 
-//metodos 
+// Función para activar/desactivar edición
+const activateEdition = (activate) => {
+  editing.value = activate;
+};
 </script>
 
-<template>
-  
-<div class="header">
-  <h1>
-   <i class="material-icons shopping-cart-icon">local_mall</i> 
-    {{ header }} 
-  </h1>
-  <button
-   v-if="editing" 
-   class="btn"
-    @click="activateEdition(false)">
-    Cancelar
-  </button>
-  <button
-   v-else
-    class="btn btn-primary" 
-    @click="activateEdition(true)">
-    Agregar Articulo
-  </button>
-  </div>
-
-  
-   <!---para poder poner link enla caja de texto v-bind:href="newItem"
-     para que cuando este bacia la caja de texto tenga un link
-     :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
-    target="_blank" -->
- <!---colocando un iperenlace
-  <a 
-    :href="newItem === '' ? 'https://www.google.com' : 'https://' + newItem" 
-    target="_blank">
-    {{ newItem === '' ? '😒 Link' : newItem }}
-  </a>
-  -->
-  <!--- agrupando entradas de usuario-->
-  <form 
-  class="add-item form"
-  v-if="editing"
-   v-on:submit.prevent="seveItem">
-  <input v-model="newItem" type="text" placeholder="Agregar un articulo" />
-  <!--Caja de seleccion de Prioridad-->
-  <label>
-    <input type="checkbox" v-model="newItemHighPriority" />
-    Alta Prioridad
-  </label>
-  <!--Boton-->
-  
-  <!--Desabilitando el boton cuando esta bacia la caja de texto
-         :disabled="newItem.length==0"-->
-  <button
-  :disabled="newItem.length==0" 
-  class="btn btn-primary">
-    Salvar Articulo
-  </button>
-  </form>
-  <ul></ul>
-
-  {{ iceCreamFlavors }}
-  <ul></ul>
-  {{ newItemHighPriority }}
-  <!-- Lista -->
-   <!-- desestructuracion -->
-  <ul>
-    <li
-     v-for="{label,id,purchased,priority} in items" 
-     :key="id"
-      :class="[purchased ? 'strikeout':'',priority? 'priority':'']"
-      >  
-      {{priority ? "🔥":"💧"}}{{  label }} 
-    </li>
-  </ul>
-  <!--Lista clases como arreglos-->
-  <p v-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
-</template>
-
 <style scoped>
-.shopping-cart-icon{
+.shopping-cart-icon {
   font-size: 2rem;
+}
+.strikeout {
+  text-decoration: line-through;
+}
+.priority {
+  color: red;
 }
 </style>
