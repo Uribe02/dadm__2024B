@@ -99,7 +99,7 @@ const activateEdition = (activate)=>{
     <li
      v-for="{label,id,purchased,priority} in items" 
      v-bind:key="id"
-      :class="{strikeout: purchased,priority}">  ➡️ 
+      :class="{strikeout: purchased,priority:priority}">  ➡️ 
       {{ label }}</li>
   </ul>
   <!--Lista clases como arreglos-->
