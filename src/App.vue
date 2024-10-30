@@ -99,9 +99,23 @@ const activateEdition = (activate)=>{
     <li
      v-for="{label,id,purchased,priority} in items" 
      v-bind:key="id"
-      :class="{strikeout: purchased,priority:priority}">  ➡️ 
+      :class="[purchased?'strikeout':'', priority?'priority':'']"
+      >  ➡️ 
+       <!--
+       </ul>
+      Lista duplicada
+       <ul>
+    <li
+      v-for="{ id, label, purchased, priority } in items"
+      v-bind:key="id"
+      :class="{ strikeout: purchased, priority}"
+    >
+      ➡️  {{ label }}
+    </li>
+       -->
       {{ label }}</li>
   </ul>
+  
   <!--Lista clases como arreglos-->
   <p v-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
 </template>
