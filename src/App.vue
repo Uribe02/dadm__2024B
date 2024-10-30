@@ -98,11 +98,9 @@ const activateEdition = (activate)=>{
   <ul>
     <li
      v-for="{label,id,purchased,priority} in items" 
-     :key="id"
-      :class="[purchased ? 'strikeout':'',priority? 'priority':'']"
-      >  
-      {{priority ? "🔥":"💧"}}{{  label }} 
-    </li>
+     v-bind:key="id"
+      :class="{strikeout: purchased,priority}">  ➡️ 
+      {{ label }}</li>
   </ul>
   <!--Lista clases como arreglos-->
   <p v-if="items.length === 0">🥀NO HAY ELEMNTOS EN LISTA🥀 </p>
