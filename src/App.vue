@@ -18,9 +18,12 @@ const items = ref([
 //item-metodo
 const seveItem = () => {
   //accediendo a la variable reactiva items value.
-  items.value.push({id:items.value.length + 1, label: newItem.value});
-  //limpia el imput 
+  items.value.push({id:items.value.length + 1, label: newItem.value,
+    highPriority: newItemHighPriority.value
+  });
+  //limpia el imput (la entrada de texto) 
   newItem.value='';
+  newItemHighPriority.value = false;
 };
 //---formulario--
 const newItem = ref('');
@@ -28,6 +31,7 @@ const newItemHighPriority = ref(false);
 const editing = ref(true);
 const activateEdition = (activate)=>{
   editing.value=activate;
+  newItemHighPriority.value = false;
 };
 // Alternando estado de compra del item
 const togglePurchased = (item) => {
