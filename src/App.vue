@@ -1,7 +1,5 @@
 <script setup>
-
 import { ref, computed } from "vue";
-
 // Modelo
 const header = ref('App lista de compras');
 //---items---
@@ -11,11 +9,6 @@ const items = ref([
   {id:'1', label: '1 crema de litro',purchased:true,priority:true},
   {id:'2', label: '1/4 de jamon',purchased:false,priority:false},
   {id:'3', label: '1 nutella',purchased:true,priority:false},
-
-  {id:'4', label: '10 bolillos',purchased:false,priority:true},
-  {id:'5', label: '1 crema de litro',purchased:true,priority:true},
-  {id:'6', label: '1/4 de jamon',purchased:false,priority:false},
-  {id:'7', label: '1 nutella',purchased:true,priority:false}
 ]);
 //item-metodo
 const seveItem = () => {
@@ -46,6 +39,11 @@ const togglePurchased = (item) => {
 const characterCount = computed(()=>{
   // Toda propiedad computada debe regresar un valor
   return newItem.value.length;
+});
+// Creando propiedad computada que invierte items de la lista
+const reversedItems = computed(() => {
+  return [...items.value].reverse(); 
+  
 });
 //metodos 
 
@@ -123,14 +121,13 @@ const characterCount = computed(()=>{
     o referencia al objeto directamente   item -->
 <!-- Lista    -->
 <ul>
-    <li
-      v-for="item in items"
-      @click="togglePurchased(item)"
-      v-bind:key="item.id"
-      :class="{ strikeout: item.purchased, priority: item.priority }"
-    >
-      ➡️ {{ item.label }}
-    </li>
+  <li 
+	v-for="({ id, label, purchased, highPriority }, index) in reversedItems"
+  :class="{ strikeout: purchased, priority: highPriority }" 
+	@click="togglePurchased(reversedItems[index])" 
+  v-bind:key="id">
+	  ➡️ {{ label }}
+</li>
   </ul>
   <p v-if="items.length === 0">🥀 No hay elementos en la lista</p>
 </template>
