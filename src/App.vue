@@ -1,5 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+
+import { ref, computed } from "vue";
+
 // Modelo
 const header = ref('App lista de compras');
 //---items---
@@ -19,10 +21,12 @@ const items = ref([
 const seveItem = () => {
   //accediendo a la variable reactiva items value.
   items.value.push({id:items.value.length + 1, label: newItem.value,
+    //---Funcionamiento de items de alta prioridad--
     highPriority: newItemHighPriority.value
   });
   //limpia el imput (la entrada de texto) 
   newItem.value='';
+  //---Funcionamiento de items de alta prioridad--
   newItemHighPriority.value = false;
 };
 //---formulario--
@@ -31,17 +35,24 @@ const newItemHighPriority = ref(false);
 const editing = ref(true);
 const activateEdition = (activate)=>{
   editing.value=activate;
+  //---Funcionamiento de items de alta prioridad--
   newItemHighPriority.value = false;
 };
 // Alternando estado de compra del item
 const togglePurchased = (item) => {
   item.purchased = !item.purchased;
 };
-
+// Creando una propiedad computada
+const characterCount = computed(()=>{
+  // Toda propiedad computada debe regresar un valor
+  return newItem.value.length;
+});
 //metodos 
+
 </script>
 
 <template>
+  
   
 <div class="header">
   <h1>
@@ -94,12 +105,17 @@ const togglePurchased = (item) => {
   class="btn btn-primary">
     Salvar Articulo
   </button>
+  	<!-- Contador -->
+    <p class="counter">
+    {{ characterCount }} / 200
+  </p>
   </form>
   <ul></ul>
 
   {{ iceCreamFlavors }}
   <ul></ul>
   {{ newItemHighPriority }}
+  
   <!-- Lista -->
    <!-- desestructuracion -->
   <!-- desestructurando index 
@@ -113,7 +129,7 @@ const togglePurchased = (item) => {
       v-bind:key="item.id"
       :class="{ strikeout: item.purchased, priority: item.priority }"
     >
-      ⚜ {{ item.label }}
+      ➡️ {{ item.label }}
     </li>
   </ul>
   <p v-if="items.length === 0">🥀 No hay elementos en la lista</p>
