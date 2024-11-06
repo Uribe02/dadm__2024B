@@ -1,11 +1,14 @@
-<script setup></script>
+<script setup>
+import {ref} from 'vue';
+import planItem from './components/plan-item.vue';
+const plans
+ = ref (['El cafetero','Él lechero','El Intelectual']);
+</script>
 
 <template>
   <header>
-    <div style="text-align: center;"></div>
     <div>
- 
-      <span id="logo">ITGAM Box EXPERIENCES</span>
+      <span id="logo">Liquid Gold Box</span>
       <img src="./assets/logo.png" alt="logo">
     </div>
   </header>
@@ -18,56 +21,13 @@
     </h2>
 
     <div class="plans">
-      <div class="plan">
-        <div class="description">
-          <span class="title">
-            El Soltero
-          </span>
-        </div>
-      </div>
-      <div class="plan">
-        <div class="description">
-          <span class="title">
-            El Curioso
-          </span>
-        </div>
-      </div>
-      <div class="plan">
-        <div class="description">
-          <span class="title">
-            El adicto
-          </span>
-        </div>
-      </div>
+      <plan-item 
+      v-for="plan in plans"
+       :name="plan" ></plan-item>
+
     </div>
   </div>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
