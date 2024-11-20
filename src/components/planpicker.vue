@@ -24,7 +24,7 @@ const plans
   :select-plan="selectedPlan"
   />
     </div>
-    <p>{{ selectedPlan }}</p>
+
 </template>
 
 
