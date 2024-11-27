@@ -1,6 +1,7 @@
 <script setup>
 import PlanPickerItem from './PlanPickerItem.vue';
-import {ref, onMounted} from 'vue';
+import {ref, onMounted, onUnmounted} from 'vue';
+
 //creando una referencia reactiva 
 //para almacenar el plan seleccionado
 const selectedPlan=ref(null);
@@ -11,20 +12,28 @@ const plans
     //almacenar el plan seleccionado 
     selectedPlan.value=name
  };
+
+ const plansWrapper = ref (null);
+
  //intentando obtener la rferencia al elemento .plans 
 
  console.log("termina de ejecutar el scrip setup 🧸");
 
-//registrando el hoo mounted
+//registrando el hook mounted
 onMounted(() =>{
 console.log("el componente planPiker de ha montado 🎉");
-console.log(document.querySelector('plans'));
+console.log(plansWrapper.value);
+});
+
+//registrando el hook mounted
+onUnmounted(() =>{
+console.log("el componente planPiker de ha desmontado 😐");
 });
 </script>
 
 
 <template>
-    <div class="plans">    
+    <div ref="plansWrapper" class="plans">    
 <PlanPickerItem
  v-for="plan in plans"
  :key="plan"
